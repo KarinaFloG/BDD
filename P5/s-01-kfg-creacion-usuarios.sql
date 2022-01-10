@@ -1,15 +1,57 @@
---@Autor: Flores García Karina
---@Fecha creación: octubre 2021
---@Descripción: Creación de usuarios en PDBS
 
 prompt Conectandose a kfgbdd_s1 como usuario SYS
 connect sys@kfgbdd_s1 as sysdba
-prompt Creando usuario bancos_bdd
-create user bancos_bdd identified by bancos_bdd quota unlimited on users;
-grant create session, create table, create procedure, create sequence to bancos_bdd;
+prompt creando usuario bancos_bdd en kfgbdd_s1
 
-prompt Conectandose a kfgbdd_s2 como usuario SYS
+declare
+  v_count number;
+  v_username varchar2(30) := 'BANCOS_BDD';
+begin
+  select count(*) into v_count
+  from all_users
+  where username = v_username;
+
+  if v_count = 0 then
+    -- Creando usuario
+    execute immediate 'create user '
+    || v_username
+    || ' identified by bancos_bdd quota unlimited on users';
+    -- Otorgando permisos al usuario
+    execute immediate 'grant create table, create session, create sequence, 
+    create procedure to '|| v_username;
+  else 
+    dbms_output.put_line('El usuario '||v_username||' ya existe');
+  end if;
+
+end;
+/
+
+
+prompt conectandose a kfgbdd_s2 como usuario SYS
 connect sys@kfgbdd_s2 as sysdba
-prompt Creando usuario bancos_bdd
-create user bancos_bdd identified by bancos_bdd quota unlimited on users;
-grant create session, create table, create procedure, create sequence to bancos_bdd;
+prompt creando usuario bancos_bdd en kfgbdd_s2
+
+declare
+  v_count number;
+  v_username varchar2(30) := 'BANCOS_BDD';
+begin
+  select count(*) into v_count
+  from all_users
+  where username = v_username;
+
+  if v_count = 0 then
+    -- Creando usuario
+    execute immediate 'create user '
+    || v_username
+    || ' identified by bancos_bdd quota unlimited on users';
+    -- Otorgando permisos al usuario
+    execute immediate 'grant create table, create session, create sequence, 
+    create procedure to '|| v_username;
+  else 
+    dbms_output.put_line('El usuario '||v_username||' ya existe');
+  end if;
+
+end;
+/
+prompt Listo
+exit

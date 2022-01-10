@@ -8,7 +8,11 @@ col tabla_hija format A30
 col nombre_restriccion format A30
 set linesize 200
 
-select table_name as tabla_hija,
-constraint_name as nombre_restriccion, 
-from user_constraints 
-where constraint_type='R';
+select h.table_name as tabla_hija,
+h.constraint_name as nombre_restriccion, 
+p.table_name as tabla_padre,
+h.constraint_type
+from user_constraints h
+join user_constraints p
+on h.r_constraint_name = p.constraint_name
+where h.constraint_type='R';

@@ -1,0 +1,22 @@
+connect bancos_bdd/bancos_bdd@kfgbdd_s1
+drop type comprobante_type_1 force;
+drop type comprobante_type_3 force;
+drop type contrato_type_2 force;
+drop type comprobante_table_1;
+drop type comprobante_table_3;
+drop type contrato_table_2;
+drop table t_f_kfg_movimiento_1;
+drop table t_f_kfg_movimiento_3;
+drop table t_f_kfg_cuenta_2;
+drop function get_remote_comprobante_1;
+drop function get_remote_comprobante_3;
+drop function get_remote_contrato_2;
+drop function get_remote_comprobante_by_id_1;
+drop function get_remote_comprobante_by_id_3;
+drop function get_remote_contrato_by_id;
+drop view movimiento_e1;
+drop view cuenta_e1;
+drop view movimiento_e2;
+drop view cuenta_e2;
+drop synonym movimientos;
+drop synonym cuentas;
